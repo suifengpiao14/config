@@ -31,6 +31,7 @@ type AccessConf struct {
 type Prest struct {
 	HTTPHost         string // HTTPHost Declare which http address the PREST used
 	HTTPPort         int    // HTTPPort Declare which http port the PREST used
+	SocketPath	 string // unix socket path
 	PGHost           string
 	PGPort           int
 	PGUser           string
@@ -86,6 +87,7 @@ func viperCfg() {
 	viper.SetDefault("http.port", 3000)
 	viper.SetDefault("pg.host", "127.0.0.1")
 	viper.SetDefault("pg.port", 5432)
+	viper.SetDefault("socket.path","")
 	viper.SetDefault("ssl.mode", "disable")
 	viper.SetDefault("pg.maxidleconn", 10)
 	viper.SetDefault("pg.maxopenconn", 10)
@@ -134,6 +136,7 @@ func Parse(cfg *Prest) (err error) {
 	}
 	cfg.HTTPHost = viper.GetString("http.host")
 	cfg.HTTPPort = viper.GetInt("http.port")
+	cfg.SocketPath = viper.GetString("socket.path")
 	cfg.PGURL = viper.GetString("pg.url")
 	cfg.PGHost = viper.GetString("pg.host")
 	cfg.PGPort = viper.GetInt("pg.port")
